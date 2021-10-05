@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAMEN</title>
+    <style>
+        .tabla{
+            width: 35%;
+            height: auto;
+            border: 3px solid #0f60a1;
+            border-collapse: collapse;
+            text-align: left;
+            
+        }
+        .tabla td{            
+            border-bottom: rgb(0, 15, 20) 1px;
+            
+        }
+        .tabla th{
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+        .text{
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body bgcolor="beige">
+    <h1 class="text">TIENDA THE PRINCESSES</h1>
+    <table class="tabla" style="margin-top: 3%;">
+        <tr>
+            <th>Folio</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </tr>
+        <tr>
+            <td>001</td>
+            <td>Celular</td>
+            <td>4000</td>
+            <td><button Folio="001" Nombre="Celular" PrecioCel="4000" onclick="quitarProducto(this)">Quitar</button></td>
+            <td><button Folio="001" Nombre="Celular" PrecioCel="4000" onclick="agregarProducto(this)">Agregar</button></td>        
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>Laptop</td>
+            <td>13000</td>
+            <td><button Folio="002" Nombre="Laptop" PrecioLap="13000" onclick="quitarProducto(this)">Quitar</button></td>
+            <td><button Folio="002" Nombre="Laptop" PrecioLap="13000" onclick="agregarProducto(this)">Agregar</button></td>
+        </tr>
+        <tr>
+            <td>003</td>
+            <td>Computadra de escritorio</td>
+            <td>30000</td>
+            <td><button Folio="003" Nombre="Computadora de escritorio" PrecioCom="30000" onclick="quitarProducto(this)">Quitar</button></td>
+            <td><button Folio="003" Nombre="Computadora de escritorio" PrecioCom="30000" onclick="agregarProducto(this)">Agregar</button></td>
+        </tr>
+        <tr>
+            <td>004</td>
+            <td>Tableta</td>
+            <td>8000</td>
+            <td><button Folio="004"  Nombre="Tableta" PrecioTab="8000" onclick="quitarProducto(this)">Quitar</button></td>
+            <td><button Folio="004" Nombre="Tableta" PrecioTab="8000" onclick="agregarProducto(this)">Agregar</button></td>
+        </tr>
+        <tr>
+            <td>005</td>
+            <td>Consola de videojuegos</td>
+            <td>9000</td>
+            <td><button Folio="005" Nombre="Consola de videojuegos" PrecioVid="9000" onclick="quitarProducto(this)">Quitar</button></td>
+            <td><button Folio="005" Nombre="Consola de videojuegos" PrecioVid="9000" onclick="agregarProducto(this)">Agregar</button></td>
+        </tr>
+    </table>
+    <table id="tablaTotales" class="tabla" style="margin-top: 3%;" >
+        <thead>
+            <tr>
+                <th>Folio</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                
+            </tr>
+        </thead>
+        <tbody id="Compras">
+    
+        </tbody>
+        
+    </table>
+    
+    <table class="tabla" style="margin-top: 3%;" >
+        <thead>
+            <tr>
+                <td><button Folio="006" Nombre="sumaTotalProductos"  onclick="sumarProductos(this)">Total</button></td> 
+                <td id="sumaTotal"></td>
+            </tr>
+        </thead>
+        <tbody id="Compras">
+    
+        </tbody>
+        
+    </table>
+
+
+
+    <h2 class="text">GRAFICA DE PRODUCTOS</h2>
+    <canvas id="GRAFICA" width="5" height="5"></canvas>
+</body>
+<script>
+var sumaCel = 0;
+var sumaLap = 0;
+var sumaCom = 0;
+var sumaTab = 0;
+var sumaVid = 0;
+var sumatot=0;
+
+var contCel = 0;
+var contLap = 0;
+var contCom = 0;
+var contTab = 0;
+var contVid = 0;
+
+var cantidadCel = 0;
+var cantidadLap = 0;
+var cantidadCom = 0;
+var cantidadTab = 0;
+var cantidadVid = 0;
+
+
+function agregarProducto(producto){
+var Nombre = producto.getAttribute('Nombre');
+var PrecioCel = producto.getAttribute('PrecioCel');
+var PrecioLap = producto.getAttribute('PrecioLap');
+var PrecioCom = producto.getAttribute('PrecioCom');
+var PrecioTab = producto.getAttribute('PrecioTab');
+var PrecioVid = producto.getAttribute('PrecioVid');
+var Folio = producto.getAttribute('Folio');
+
+
+
+switch (Nombre) {
+  case 'Celular':
+    contCel += 1;
+    cantidadCel += 1;
+    sumaCel = sumaCel + parseInt(PrecioCel);
+        if (contCel <= 1){
+            document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaCel">'+sumaCel+'</td><td id="cantidadCel">'+cantidadCel+'</td></tr>';
+        } else {
+            document.getElementById("sumaCel").innerHTML = sumaCel;
+            document.getElementById("cantidadCel").innerHTML = cantidadCel;
+
+        }
+    break;
+  case 'Laptop':
+    contLap += 1;
+    cantidadLap += 1;
+    sumaLap = sumaLap + parseInt(PrecioLap);
+        if (contLap <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaLap">'+sumaLap+'</td><td id="cantidadLap">'+cantidadLap+'</td></tr>';
+                } else {
+                    document.getElementById("sumaLap").innerHTML = sumaLap;
+                    document.getElementById("cantidadLap").innerHTML = cantidadLap;
+
+                }
+    break;
+  case 'Computadora de escritorio':
+    contCom += 1;
+    cantidadCom += 1;
+    sumaCom = sumaCom + parseInt(PrecioCom);
+        if (contCom <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaCom">'+sumaCom+'</td><td id="cantidadCom">'+cantidadCom+'</td></tr>';
+                } else {
+                    document.getElementById("sumaCom").innerHTML = sumaCom;
+                    document.getElementById("cantidadCom").innerHTML = cantidadCom;
+
+                }
+    break;
+  case 'Tableta':
+    contTab += 1;
+    cantidadTab += 1;
+    sumaTab = sumaTab + parseInt(PrecioTab);
+        if (contTab <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaTab">'+sumaTab+'</td><td id="cantidadTab">'+cantidadTab+'</td></tr>';
+                } else {
+                    document.getElementById("sumaTab").innerHTML = sumaTab;
+                    document.getElementById("cantidadTab").innerHTML = cantidadTab;
+
+                }
+    break
+  case 'Consola de videojuegos':
+    contVid += 1;
+    cantidadVid += 1;
+    sumaVid = sumaVid + parseInt(PrecioVid);
+        if (contVid <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaVid">'+sumaVid+'</td><td id="cantidadVid">'+cantidadVid+'</td></tr>';
+                } else {
+                    document.getElementById("sumaVid").innerHTML = sumaVid;
+                    document.getElementById("cantidadVid").innerHTML = cantidadVid;
+
+                }
+    break;
+
+    
+}
+
+updateGrafica();
+
+}
+
+
+function quitarProducto(producto){
+var Nombre = producto.getAttribute('Nombre');
+var PrecioCel = producto.getAttribute('PrecioCel');
+var PrecioLap = producto.getAttribute('PrecioLap');
+var PrecioCom = producto.getAttribute('PrecioCom');
+var PrecioTab = producto.getAttribute('PrecioTab');
+var PrecioVid = producto.getAttribute('PrecioVid');
+var Folio = producto.getAttribute('Folio');
+
+
+
+switch (Nombre) {
+    case 'Celular':
+    contCel += 1;
+    cantidadCel -= 1;
+    sumaCel = sumaCel - parseInt(PrecioCel);
+        if (contCel <= 1){
+            document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaCel">'+sumaCel+'</td><td id="cantidadCel">'+cantidadCel+'</td></tr>';
+        } else {
+            document.getElementById("sumaCel").innerHTML = sumaCel;
+            document.getElementById("cantidadCel").innerHTML = cantidadCel;
+
+        }
+        
+    break;
+  case 'Laptop':
+    contLap += 1;
+    cantidadLap -= 1;
+    sumaLap = sumaLap - parseInt(PrecioLap);
+        if (contLap <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaLap">'+sumaLap+'</td><td id="cantidadLap">'+cantidadLap+'</td></tr>';
+                } else {
+                    document.getElementById("sumaLap").innerHTML = sumaLap;
+                    document.getElementById("cantidadLap").innerHTML = cantidadLap;
+
+                }
+    break;
+  case 'Computadora de escritorio':
+    contCom += 1;
+    cantidadCom -= 1;
+    sumaCom = sumaCom - parseInt(PrecioCom);
+        if (contCom <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaCom">'+sumaCom+'</td><td id="cantidadCom">'+cantidadCom+'</td></tr>';
+                } else {
+                    document.getElementById("sumaCom").innerHTML = sumaCom;
+                    document.getElementById("cantidadCom").innerHTML = cantidadCom;
+
+                }
+    break;
+  case 'Tableta':
+    contTab += 1;
+    cantidadTab -= 1;
+    sumaTab = sumaTab - parseInt(PrecioTab);
+        if (contTab <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaTab">'+sumaTab+'</td><td id="cantidadTab">'+cantidadTab+'</td></tr>';
+                } else {
+                    document.getElementById("sumaTab").innerHTML = sumaTab;
+                    document.getElementById("cantidadTab").innerHTML = cantidadTab;
+
+                }
+    break
+  case 'Consola de videojuegos':
+    contVid += 1;
+    cantidadVid -= 1;
+    sumaVid = sumaVid - parseInt(PrecioVid);
+        if (contVid <= 1){
+                    document.getElementById('Compras').innerHTML += '<tr><td id>'+Folio+'</td><td>'+Nombre+'</td><td id="sumaVid">'+sumaVid+'</td><td id="cantidadVid">'+cantidadVid+'</td></tr>';
+                } else {
+                    document.getElementById("sumaVid").innerHTML = sumaVid;
+                    document.getElementById("cantidadVid").innerHTML = cantidadVid;
+
+                }
+    break;
+
+    
+}
+updateGrafica();
+}
+
+function sumarProductos (){
+    
+var sumaCel = document.getElementById("sumaCel") ? parseInt(document.getElementById("sumaCel").innerText) : 0;
+var sumaLap = document.getElementById("sumaLap") ? parseInt(document.getElementById("sumaLap").innerText) : 0;
+var sumaCom = document.getElementById("sumaCom") ? parseInt(document.getElementById("sumaCom").innerText) : 0;
+var sumaTab = document.getElementById("sumaTab") ? parseInt(document.getElementById("sumaTab").innerText) : 0;
+var sumaVid = document.getElementById("sumaVid") ? parseInt(document.getElementById("sumaVid").innerText) : 0;
+
+var sumaTotalProductos = sumaCel + sumaLap + sumaCom + sumaTab +  sumaVid;
+
+document.getElementById("sumaTotal").innerHTML = sumaTotalProductos;
+
+
+}
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+    var ctx = document.getElementById('GRAFICA').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['CELULAR', 'LAPTOP', 'COMPUTADORA DE ESCRITORIO', 'TABLETA', 'CONSOLA DE VIDEOJUEGOS'],
+        datasets: [{
+            label: 'RANGO DE PRECIOS',
+            data: [0, 0, 0, 0, 0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+function updateGrafica(){
+
+    var grafCel = document.getElementById("cantidadCel") ? parseInt(document.getElementById("cantidadCel").innerText) : 0;
+    var grafLap = document.getElementById("cantidadLap") ? parseInt(document.getElementById("cantidadLap").innerText) : 0;
+    var grafCom = document.getElementById("cantidadCom") ? parseInt(document.getElementById("cantidadCom").innerText) : 0;
+    var grafTab = document.getElementById("cantidadTab") ? parseInt(document.getElementById("cantidadTab").innerText) : 0;
+    var grafVid = document.getElementById("cantidadVid") ? parseInt(document.getElementById("cantidadVid").innerText) : 0;
+
+    
+    myChart.data.datasets[0].data[0] = grafCel;
+    myChart.data.datasets[0].data[1] = grafLap; 
+    myChart.data.datasets[0].data[2] = grafCom; 
+    myChart.data.datasets[0].data[3] = grafTab; 
+    myChart.data.datasets[0].data[4] = grafVid; 
+    myChart.update();
+}
+
+</script>
+
+</html>
